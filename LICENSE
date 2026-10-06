@@ -1,21 +1,146 @@
-MIT License
+Ligero Royalty License v1.0
+(Lightweight Geometric Perception System License)
 
-Copyright (c) 2026 ligeopersys contributors
+Copyright (c) 2026 Gyanendra Verma ("the Copyright Holder").
+Repository: https://github.com/<owner>/lightweight-geometric-perception-system
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+SPDX-License-Identifier: LicenseRef-Ligero-Royalty-1.0
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+--------------------------------------------------------------------------------
+PREAMBLE
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This license makes the Software (all code, probes, tools, documentation,
+schemas, examples and assets in this repository) available in two ways:
+
+  (a) EDUCATIONAL & RESEARCH USE — 100% free, no royalty, for everyone; and
+  (b) ANY OTHER USE (including any commercial, business, for-profit or
+      production/"real-time" deployment) — only under a separate written
+      Commercial License from the Copyright Holder, carrying a royalty of
+      five percent (5%) of Net Revenue of the project that uses the Software.
+
+This is a source-available license. It is NOT an OSI-approved open-source
+license: the rights granted here are limited to Educational & Research Use.
+
+--------------------------------------------------------------------------------
+1. DEFINITIONS
+
+1.1 "Software" means the contents of this repository — source code, scripts,
+    probes, schemas, documentation, examples, assets and any modified or
+    derived versions of them.
+
+1.2 "Educational & Research Use" means use that is not primarily intended for
+    or directed toward commercial advantage or monetary compensation,
+    including: use by students, teachers and schools; academic and
+    non-profit research; personal study and self-education; evaluation,
+    benchmarking and experimentation that does not operate as part of a
+    revenue-generating product or service; and journalism or public
+    commentary about the Software.
+
+1.3 "Commercial Use" means any use of the Software as a component of, or in
+    the operation of, a product, service, system or activity from which
+    revenue is derived or is intended to be derived — including but not
+    limited to: deployment in a commercial product or paid service;
+    incorporation into client deliverables for a fee; use by a company,
+    firm or individual in their ordinary business operations; or use that
+    offers any commercial advantage. Any Commercial Use requires a
+    Commercial License under Section 3.
+
+1.4 "Net Revenue" means the gross revenue of the project attributable to the
+    product or service in which the Software is used, minus only: (i) taxes
+    collected on behalf of third parties (e.g. GST/VAT), and (ii) fees paid
+    directly to payment processors for the relevant transactions. Revenue is
+    not reduced by other costs, expenses or third-party components.
+
+1.5 "Contribution" means any work intentionally submitted to the Copyright
+    Holder for inclusion in the Software.
+
+--------------------------------------------------------------------------------
+2. GRANT — EDUCATIONAL & RESEARCH USE (ROYALTY-FREE)
+
+Subject to the terms of this license, the Copyright Holder grants you a
+worldwide, non-exclusive, royalty-free, irrevocable (while you remain in
+compliance) licence to:
+
+  (a) use, copy, study, modify and run the Software; and
+  (b) distribute copies of the Software and of modified versions of it,
+
+in each case **solely for Educational & Research Use**, provided that:
+
+  (i)   the copyright notice and this license are retained and reproduced
+        with every copy or substantial portion of the Software;
+  (ii)  modified versions are clearly marked as modified and are
+        distributed under this same license (no relicensing of modified
+        copies without a Commercial License);
+  (iii) the name, identity and contribution of the Copyright Holder are not
+        used to imply endorsement of modified versions; and
+  (iv)  any Contribution you submit remains your copyright, is licensed
+        under this same license, and you grant the Copyright Holder the
+        perpetual, worldwide, royalty-free right to use, modify and
+        relicense that Contribution (this allows the Copyright Holder to
+        remain the main contributor and to issue Commercial Licenses).
+
+Educational & Research Use requires no permission, no registration and no
+payment. No request for permission is needed for classroom, homework,
+science-fair, thesis or academic-paper use.
+
+--------------------------------------------------------------------------------
+3. COMMERCIAL USE — ROYALTY LICENSE REQUIRED
+
+3.1 No Commercial Use is permitted under Section 2. Any Commercial Use
+    requires a separate written Commercial License signed by the Copyright
+    Holder, obtained in advance by contacting:
+
+        gyan4it@gmail.com
+
+3.2 Royalty terms. The royalty for a Commercial License is **five percent
+    (5%) of Net Revenue** of the project that uses the Software, calculated
+    per project (1.4), payable annually within thirty (30) days of the end
+    of each calendar year in which the Commercial Use occurred, together
+    with a statement of Net Revenue for that period. Terms for new or
+    multi-year engagements may be agreed in writing before signing.
+
+3.3 No implied licence. Using the Software commercially without an executed
+    Commercial License and payment of the royalty is a material breach of
+    this licence and copyright infringement.
+
+3.4 Educational & Research Use remains free even while another party holds a
+    Commercial License for the same Software.
+
+--------------------------------------------------------------------------------
+4. SCOPE, TERMINATION AND MISCELLANEOUS
+
+4.1 Trademark. This license grants no right to use the Copyright Holder's
+    name, likeness, logos or marks, except the attribution required by 2(i).
+
+4.2 Termination. Your rights under Section 2 terminate automatically if you
+    breach this license, including by making Commercial Use without a
+    Commercial License. You may reinstate Educational & Research Use rights
+    retroactively upon thirty (30) days' written notice and cure of the
+    breach. Section 3.3 and Sections 4–6 survive termination.
+
+4.3 No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+    KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR
+    ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS
+    USE.
+
+4.4 Governing law. This licence is governed by the laws of India; courts at
+    Gaya, Bihar have exclusive jurisdiction, unless a Commercial License
+    states otherwise.
+
+--------------------------------------------------------------------------------
+5. SUMMARY (for convenience — the clauses above control)
+
+  Education / research / personal use .......... FREE, no conditions beyond
+                                                 keeping the notice
+  Any commercial or production use ............. written Commercial License
+                                                 required; 5% of Net Revenue
+  Contributions ............ licensed to the repo under this licence, with
+                                                 the Copyright Holder as
+                                                 principal contributor/licensor
+
+--------------------------------------------------------------------------------
+NOTE: This is a plain-language legal text prepared without legal review;
+consider consulting a lawyer before relying on it for material commercial
+transactions.

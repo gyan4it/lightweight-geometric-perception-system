@@ -121,4 +121,12 @@ handed to a human.
 
 ## License
 
-[MIT](LICENSE)
+**Ligero Royalty License v1.0** ([LICENSE](LICENSE)) — source-available, *not* OSI open source.
+
+| Use | Terms |
+|---|---|
+| Education, teaching, academic/personal research, study | **100% free** — no permission, no payment |
+| **Any** commercial / production ("real-time") use | written Commercial License + **5% of Net Revenue** royalty → [gyan4it@gmail.com](mailto:gyan4it@gmail.com) |
+
+Contributions stay under this license; Gyanendra Verma remains the principal
+contributor and licensing authority.
