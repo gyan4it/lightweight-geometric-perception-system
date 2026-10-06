@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "target": "web/posters/poster-2.html",
+  "probe": "layout_probe.js",
+  "browser": "HeadlessChrome/140",
+  "ts": "2026-10-06T11:42:07Z",
+  "root": {"x": 0, "y": 0, "w": 2079, "h": 2646},
+  "context": {"nFigs": 3, "nImgs": 4},
+  "issues": [
+    {
+      "t": "OVERFLOW",
+      "det": "content clipped: scrollH=3106 > clientH=2646",
+      "rect": {"x": 0, "y": 0, "w": 2079, "h": 2646},
+      "conf": 0.95
+    },
+    {
+      "t": "OVERFLOW",
+      "det": "footer pushed below root bottom (3106 > 2646)",
+      "rect": {"x": 0, "y": 3010, "w": 2079, "h": 96},
+      "conf": 0.95
+    }
+  ],
+  "_note": "founding case study — figures spanned the full 2-column grid (span-2), stacking ~460px each; sheet is 2079x2646 and had ~460px spare horizontally, not vertically. Reasoner moved the two figures side-by-side; re-run returned issues:[] and print_check still reported 1 page @ 1559x1984pt."
+}

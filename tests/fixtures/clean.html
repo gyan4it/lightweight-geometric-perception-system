@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Clean fixture — the probes must report ZERO issues here.
+     Guards against probes that flag everything (false-positive control). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ligeopersys clean fixture</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  #root { position: relative; width: 600px; min-height: 360px;
+          padding: 16px; box-sizing: border-box; background: #fff; }
+  figure { margin: 0 0 16px; width: 300px; background: #dfe9df;
+           border: 1px solid #2E7D32; }
+  footer { background: #1B2430; color: #fff; font-size: 12px;
+           padding: 6px; width: 300px; }
+  svg { display: block; border: 1px dashed #999; }
+</style>
+</head>
+<body>
+  <div id="root" data-probe-root>
+    <h1>Clean page</h1>
+    <p>Everything fits inside its container.</p>
+
+    <figure>
+      <figcaption>Figure A</figcaption>
+    </figure>
+
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGPQqzUCAAG6AN7Eir+IAAAAAElFTkSuQmCC"
+         alt="1x1 pixel" style="width:50px; height:50px;">
+
+    <footer>footer inside the root, in normal flow</footer>
+  </div>
+
+  <svg width="300" height="120" viewBox="0 0 300 120" role="img" aria-label="clean svg">
+    <text x="20" y="50" font-size="20" fill="#1B2430">FIRST</text>
+    <text x="140" y="50" font-size="20" fill="#0277BD">SECOND</text>
+    <rect x="20" y="70" width="80" height="30" fill="#2E7D32"/>
+  </svg>
+</body>
+</html>

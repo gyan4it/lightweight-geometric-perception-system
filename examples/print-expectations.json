@@ -1,0 +1,8 @@
+[{"file": "docs/report.html", "pages": [8, 40], "orient": "portrait",
+  "label": "report A4"},
+ {"file": "slides.html", "pages": [5, 5], "orient": "landscape",
+  "label": "deck 5 slides"},
+ {"file": "posters/poster-1.html", "pages": [1, 1], "size_cm": [55, 70],
+  "label": "poster-1"},
+ {"file": "posters/poster-2.html", "pages": [1, 1], "size_cm": [55, 70],
+  "label": "poster-2"}]

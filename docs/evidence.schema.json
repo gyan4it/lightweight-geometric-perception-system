@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ligeopersys.local/evidence.schema.json",
+  "title": "ligeopersys evidence envelope",
+  "type": "object",
+  "required": ["schema_version", "target", "probe", "issues"],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\." },
+    "target": { "type": "string", "minLength": 1 },
+    "probe": { "type": "string", "minLength": 1 },
+    "browser": { "type": "string" },
+    "ts": { "type": "string", "format": "date-time" },
+    "root": { "$ref": "#/$defs/rect" },
+    "context": { "type": "object" },
+    "issues": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/issue" }
+    }
+  },
+  "$defs": {
+    "rect": {
+      "type": "object",
+      "required": ["x", "y", "w", "h"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "w": { "type": "number" },
+        "h": { "type": "number" },
+        "b": { "type": "number", "description": "bottom edge" },
+        "r": { "type": "number", "description": "right edge" }
+      }
+    },
+    "issue": {
+      "type": "object",
+      "required": ["t", "det", "conf"],
+      "properties": {
+        "t": {
+          "type": "string",
+          "enum": [
+            "OVERFLOW", "OVERLAP", "OUT-OF-BOUNDS", "IMG-FAIL", "ASPECT",
+            "OUT-OF-CANVAS", "TEXT-COLLIDE",
+            "E00", "E01"
+          ],
+          "description": "violation code; driver-specific codes may extend (AXE/*, PRN/*, KBD/*, LNK/*)"
+        },
+        "det": { "type": "string", "minLength": 3 },
+        "rect": { "$ref": "#/$defs/rect" },
+        "box": { "$ref": "#/$defs/rect" },
+        "a": { "$ref": "#/$defs/rect" },
+        "b": { "$ref": "#/$defs/rect" },
+        "conf": { "type": "number", "minimum": 0, "maximum": 1 },
+        "src": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

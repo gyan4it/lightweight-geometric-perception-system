@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="lad-t lad-d">
+  <title id="lad-t">Escalation ladder L1 to L3</title>
+  <desc id="lad-d">Three levels: L1 geometry measurable, agent decides; L2 codified rules; L3 judgement, human only. The agent works bottom-up and never self-certifies L3.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1B2430"/>
+    </marker>
+    <style>
+      .t   { font-family: system-ui, "Segoe UI", sans-serif; fill: #1B2430; }
+      .h1  { font-size: 24px; font-weight: 700; }
+      .sub { font-size: 14px; fill: #5B6472; }
+      .lbl { font-size: 16px; font-weight: 700; }
+      .ln  { font-size: 13px; fill: #1B2430; }
+      .cap { font-size: 13px; fill: #5B6472; }
+      .side{ font-size: 13px; font-weight: 600; }
+      .up  { stroke: #1B2430; stroke-width: 2; fill: none; marker-end: url(#ar); }
+    </style>
+  </defs>
+
+  <rect width="960" height="520" fill="#FFFFFF"/>
+  <text class="t h1"  x="15" y="34">Escalation ladder — what the agent may decide alone</text>
+  <text class="t sub" x="15" y="55">claims climb only as far as the evidence can be proven</text>
+
+  <!-- L1 -->
+  <rect x="70" y="370" width="560" height="96" rx="6" fill="#E8F3E9" stroke="#2E7D32" stroke-width="2"/>
+  <text class="t lbl" x="90" y="400">L1 · GEOMETRY &amp; MECHANICS</text>
+  <text class="t ln"  x="90" y="424">overlap · overflow · bounds · img load · aspect · links</text>
+  <text class="t ln"  x="90" y="446">focus visibility · PDF page box — agent fixes alone</text>
+  <text class="t side" x="650" y="410" fill="#2E7D32">provable →</text>
+  <text class="t cap"  x="650" y="432">rects &amp; metrics</text>
+
+  <!-- L2 -->
+  <rect x="110" y="234" width="560" height="96" rx="6" fill="#FDF3DC" stroke="#F9A825" stroke-width="2"/>
+  <text class="t lbl" x="130" y="264">L2 · CODIFIED RULES</text>
+  <text class="t ln"  x="130" y="288">WCAG AA contrast · palette allowlist · min font size</text>
+  <text class="t ln"  x="130" y="310">label-in-name — agent decides, the RULE is reviewable</text>
+  <text class="t side" x="690" y="274" fill="#B27C00">written limits →</text>
+  <text class="t cap"  x="690" y="296">codified once, checked forever</text>
+
+  <!-- L3 -->
+  <rect x="150" y="98" width="560" height="96" rx="6" fill="#E3F0F9" stroke="#0277BD" stroke-width="2"/>
+  <text class="t lbl" x="170" y="128">L3 · JUDGEMENT</text>
+  <text class="t ln"  x="170" y="152">“does it look right / feel finished?” — aesthetics,</text>
+  <text class="t ln"  x="170" y="174">hierarchy, artistry — HUMAN ONLY via screenshot/PDF</text>
+  <text class="t side" x="730" y="138" fill="#0277BD">not machine-</text>
+  <text class="t side" x="730" y="158" fill="#0277BD">decidable →</text>
+
+  <!-- climb arrows -->
+  <path class="up" d="M88 366 V336"/>
+  <path class="up" d="M128 230 V200"/>
+  <text class="t cap" x="8" y="356">agent</text>
+  <text class="t cap" x="8" y="376">works</text>
+  <text class="t cap" x="8" y="396">bottom-</text>
+  <text class="t cap" x="8" y="416">up</text>
+
+  <text class="t cap" x="150" y="496">Stop climbing only at L3 — and hand the artefact to the person, never to yourself (never self-certify).</text>
+</svg>

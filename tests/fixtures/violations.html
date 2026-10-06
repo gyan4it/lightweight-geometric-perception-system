@@ -1,0 +1,53 @@
+<!doctype html>
+<!-- Fixture with DELIBERATE violations — the probes MUST catch all of them.
+     See tests/test_selfcheck.py (seeded-violation self-test). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ligeopersys violation fixture</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  #root { position: relative; width: 400px; height: 300px;
+          overflow: hidden; border: 2px solid #333; background: #fff; }
+  .tall { height: 400px; background: #eef3ee; }
+  figure { margin: 0; background: #dfe9df; border: 1px solid #2E7D32; }
+  footer { background: #1B2430; color: #fff; font-size: 12px; padding: 4px; }
+  svg { display: block; margin: 24px; border: 1px dashed #999; }
+</style>
+</head>
+<body>
+  <div id="root" data-probe-root>
+    <div class="tall">tall content (400px in a 300px root) → OVERFLOW</div>
+
+    <figure style="position:absolute; left:20px; top:60px; width:200px; height:120px;">
+      <figcaption>Figure A</figcaption>
+    </figure>
+
+    <figure style="position:absolute; left:150px; top:100px; width:200px; height:120px;">
+      <figcaption>Figure B</figcaption>
+    </figure>
+
+    <footer style="position:absolute; left:40px; top:70px; width:180px; height:80px;">
+      footer colliding with Figure A
+    </footer>
+
+    <p style="position:absolute; left:350px; top:20px; width:200px; margin:0;">
+      this text box escapes the root on the right → OUT-OF-BOUNDS
+    </p>
+
+    <img src="missing-on-purpose.png" alt="broken"
+         style="position:absolute; left:10px; top:210px; width:60px; height:60px;">
+
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGPQqzUCAAG6AN7Eir+IAAAAAElFTkSuQmCC"
+         alt="pixel"
+         style="position:absolute; left:90px; top:210px; width:100px; height:10px;">
+  </div>
+
+  <svg width="300" height="120" viewBox="0 0 300 120" role="img" aria-label="violation svg">
+    <text x="10" y="40" font-size="28" fill="#1B2430">AAAA</text>
+    <text x="14" y="40" font-size="28" fill="#1B2430">BBBB</text>
+    <text x="270" y="100" font-size="28" fill="#0277BD">LONGTEXT</text>
+    <rect x="290" y="10" width="30" height="20" fill="#5B6472"/>
+  </svg>
+</body>
+</html>

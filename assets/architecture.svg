@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="arch-t arch-d">
+  <title id="arch-t">ligeopersys full-stack architecture</title>
+  <desc id="arch-d">Four working layers L0 transport, L1 sensing, L2 evidence, L3 reasoner, governed by L4, with a fix loop back to the artifact and a human L3 gate.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1B2430"/>
+    </marker>
+    <style>
+      .t   { font-family: system-ui, "Segoe UI", sans-serif; fill: #1B2430; }
+      .h1  { font-size: 24px; font-weight: 700; }
+      .sub { font-size: 14px; fill: #5B6472; }
+      .lbl { font-size: 15px; font-weight: 700; }
+      .ln  { font-size: 13px; fill: #1B2430; }
+      .cap { font-size: 13px; fill: #5B6472; }
+      .box { fill: #F4F7F4; stroke: #1B2430; stroke-width: 2; }
+      .flow{ stroke: #1B2430; stroke-width: 2; fill: none; marker-end: url(#ar); }
+    </style>
+  </defs>
+
+  <rect width="1120" height="520" fill="#FFFFFF"/>
+  <text class="t h1" x="15" y="34">ligeopersys — renderer-as-sensor pipeline</text>
+  <text class="t sub" x="15" y="55">a text-only AI reasons about rendered output through typed geometric evidence</text>
+
+  <!-- L4 governance banner -->
+  <rect class="box" x="15" y="70" width="1090" height="40" rx="6" fill="#FDF3DC" stroke="#F9A825"/>
+  <text class="t lbl" x="30" y="95">L4 GOVERNANCE — seeded self-test · playbook rules · escalation gate L1/L2/L3</text>
+
+  <!-- pipeline -->
+  <rect class="box" x="10" y="140" width="247" height="90" rx="6"/>
+  <text class="t lbl" x="26" y="166">L0 · TRANSPORT</text>
+  <text class="t ln"  x="26" y="188">headless Edge/Chrome</text>
+  <text class="t ln"  x="26" y="208">CDP · websocket-client</text>
+
+  <rect class="box" x="297" y="140" width="247" height="90" rx="6"/>
+  <text class="t lbl" x="313" y="166">L1 · SENSING</text>
+  <text class="t ln"  x="313" y="188">probes: layout · svg</text>
+  <text class="t ln"  x="313" y="208">axe · focus · printToPDF</text>
+
+  <rect class="box" x="584" y="140" width="247" height="90" rx="6"/>
+  <text class="t lbl" x="600" y="166">L2 · EVIDENCE</text>
+  <text class="t ln"  x="600" y="188">{t, det, rect, conf}</text>
+  <text class="t ln"  x="600" y="208">codes · bands · provenance</text>
+
+  <rect class="box" x="871" y="140" width="247" height="90" rx="6"/>
+  <text class="t lbl" x="887" y="166">L3 · REASONER</text>
+  <text class="t ln"  x="887" y="188">text-only LLM</text>
+  <text class="t ln"  x="887" y="208">hypothesise → edit → re-run</text>
+
+  <path class="flow" d="M257 185 H293"/>
+  <path class="flow" d="M544 185 H580"/>
+  <path class="flow" d="M831 185 H867"/>
+
+  <!-- artifact box -->
+  <rect class="box" x="10" y="340" width="300" height="70" rx="6" fill="#E8F3E9" stroke="#2E7D32"/>
+  <text class="t lbl" x="26" y="370">ARTIFACT</text>
+  <text class="t ln"  x="26" y="392">HTML · SVG · print CSS</text>
+
+  <!-- human gate -->
+  <rect class="box" x="780" y="340" width="328" height="80" rx="6" fill="#E3F0F9" stroke="#0277BD"/>
+  <text class="t lbl" x="796" y="370">HUMAN GATE (L3)</text>
+  <text class="t ln"  x="796" y="392">screenshot / print PDF → person</text>
+  <text class="t ln"  x="796" y="410">agent never self-certifies taste</text>
+
+  <!-- render path: artifact up into L0 -->
+  <path class="flow" d="M60 340 V234"/>
+  <text class="t cap" x="70" y="300">render</text>
+
+  <!-- fix loop: L3 down, left, into artifact -->
+  <path class="flow" d="M920 230 V300 H250 V340"/>
+  <text class="t cap" x="500" y="290">fixes: edit SOURCE (html/css/svg/md), then re-measure</text>
+
+  <!-- L3 → human gate -->
+  <path class="flow" d="M1070 230 V336"/>
+  <text class="t cap" x="962" y="322">L3 questions</text>
+
+  <text class="t cap" x="15" y="460">evidence travels L0→L3 only as typed JSON; “clean” means these probes found nothing (scoped).</text>
+  <text class="t cap" x="15" y="482">loop exits when issues = 0 or the gate escalates — fixes are proven by re-measurement, never asserted.</text>
+  <text class="t cap" x="15" y="504">tools/cdp_runner.py · probes/*.js · docs/evidence.schema.json · tests/test_selfcheck.py</text>
+</svg>

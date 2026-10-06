@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="loop-t loop-d">
+  <title id="loop-t">Perceive–evidence–reason–act loop</title>
+  <desc id="loop-d">Cycle: measure with probes, get typed evidence, reason to a hypothesis, act by editing the source, then re-measure until clean.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1B2430"/>
+    </marker>
+    <style>
+      .t   { font-family: system-ui, "Segoe UI", sans-serif; fill: #1B2430; }
+      .h1  { font-size: 24px; font-weight: 700; }
+      .sub { font-size: 14px; fill: #5B6472; }
+      .lbl { font-size: 15px; font-weight: 700; }
+      .ln  { font-size: 13px; fill: #1B2430; }
+      .cap { font-size: 13px; fill: #5B6472; }
+      .box { fill: #F4F7F4; stroke: #1B2430; stroke-width: 2; }
+      .flow{ stroke: #1B2430; stroke-width: 2; fill: none; marker-end: url(#ar); }
+    </style>
+  </defs>
+
+  <rect width="960" height="420" fill="#FFFFFF"/>
+  <text class="t h1"  x="15" y="34">The loop — fixes are proven by re-measurement</text>
+  <text class="t sub" x="15" y="55">question-guided scope: only the artifact under change is measured</text>
+
+  <!-- MEASURE -->
+  <rect class="box" x="40" y="90" width="230" height="80" rx="6" fill="#E8F3E9" stroke="#2E7D32"/>
+  <text class="t lbl" x="56" y="120">MEASURE</text>
+  <text class="t ln"  x="56" y="144">probes run in the renderer</text>
+
+  <!-- EVIDENCE -->
+  <rect class="box" x="365" y="90" width="230" height="80" rx="6" fill="#E3F0F9" stroke="#0277BD"/>
+  <text class="t lbl" x="381" y="120">EVIDENCE</text>
+  <text class="t ln"  x="381" y="144">typed {t, det, rect, conf}</text>
+
+  <!-- REASON -->
+  <rect class="box" x="690" y="90" width="230" height="80" rx="6" fill="#F4F7F4"/>
+  <text class="t lbl" x="706" y="120">REASON</text>
+  <text class="t ln"  x="706" y="144">hypothesise cause (LLM)</text>
+
+  <!-- ACT -->
+  <rect class="box" x="690" y="260" width="230" height="80" rx="6" fill="#FDF3DC" stroke="#F9A825"/>
+  <text class="t lbl" x="706" y="290">ACT</text>
+  <text class="t ln"  x="706" y="314">edit SOURCE file(s)</text>
+
+  <!-- arrows top row -->
+  <path class="flow" d="M270 130 H361"/>
+  <text class="t cap" x="274" y="120">run probes</text>
+  <path class="flow" d="M595 130 H686"/>
+  <text class="t cap" x="600" y="120">typed JSON</text>
+
+  <!-- reason → act -->
+  <path class="flow" d="M805 170 V256"/>
+  <text class="t cap" x="815" y="218">hypothesis</text>
+
+  <!-- act → back to measure -->
+  <path class="flow" d="M690 300 H155 V174"/>
+  <text class="t cap" x="330" y="290">re-measure — finding gone? yes: continue · no: new hypothesis</text>
+
+  <!-- exit labels -->
+  <text class="t cap" x="40" y="360">exit A: issues = 0 → run ALL checks (shared CSS side effects) → report green (scoped)</text>
+  <text class="t cap" x="40" y="382">exit B: not decidable by measurement → HUMAN GATE with screenshot/PDF (L3)</text>
+  <text class="t cap" x="40" y="404">exit C: evidence too weak → write a NEW probe (extend the sensor), then loop again</text>
+</svg>

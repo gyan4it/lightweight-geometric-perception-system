@@ -1,0 +1,9 @@
+# browser automation state
+edge-profile*/
+__pycache__/
+*.pyc
+node_modules/
+
+# generated outputs
+out/
+*.log

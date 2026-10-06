@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "target": "web/ (4 posters + d3 + d5 + report + 10 svg assets)",
+  "probe": "layout_probe.js + svg_probe.js",
+  "browser": "HeadlessChrome/140",
+  "ts": "2026-10-06T13:05:44Z",
+  "context": {"geometry_issues": 0, "style_issues": 0, "axe_violations": 0,
+              "kbd_findings": 0, "print_checks": "8/8"},
+  "issues": [],
+  "_note": "scoped-clean report from the founding project after the fix loop: vision_bridge geometry+style audit 0/0, a11y_check (axe WCAG A/AA on 19 pages + keyboard probe) 0, print_check (A4 docs, 5-slide landscape deck, 4 posters 55x70cm exact) 8/8. 'Clean' claims only what these probes measured — L3 look-and-feel was separately signed off by the human Director."
+}
