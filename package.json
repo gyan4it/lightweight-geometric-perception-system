@@ -1,0 +1,54 @@
+{
+  "name": "lightweight-geometric-perception-system",
+  "version": "1.0.0",
+  "description": "Renderer-as-sensor perception: JS probes emit typed geometric evidence {t, det, rect, conf} so a text-only AI can verify HTML/SVG/PDF without seeing pixels. Free for education & research; 5% royalty on commercial use.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Gyanendra Verma <gyan4it@gmail.com>",
+  "homepage": "https://github.com/gyan4it/lightweight-geometric-perception-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gyan4it/lightweight-geometric-perception-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gyan4it/lightweight-geometric-perception-system/issues"
+  },
+  "keywords": [
+    "renderer-as-sensor",
+    "headless-browser",
+    "chrome-devtools-protocol",
+    "cdp",
+    "layout-verification",
+    "geometric-evidence",
+    "accessibility-testing",
+    "axe-core",
+    "wcag",
+    "qa-automation",
+    "static-analysis",
+    "svg",
+    "print-css",
+    "pdf-validation",
+    "evidence-schema",
+    "text-only-llm",
+    "python",
+    "javascript"
+  ],
+  "files": [
+    "LICENSE",
+    "README.md",
+    "probes/",
+    "tools/",
+    "docs/",
+    "assets/",
+    "examples/",
+    "tests/"
+  ],
+  "scripts": {
+    "selfcheck": "python tests/test_selfcheck.py",
+    "check:layout": "python tools/layout_check.py",
+    "check:a11y": "python tools/a11y_check.py",
+    "check:print": "python tools/print_check.py"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
