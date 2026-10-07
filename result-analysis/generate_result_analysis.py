@@ -13,7 +13,7 @@ import openpyxl
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-CLASSES = ["IX A", "VII A", "X C", "X F", "X H", "X I", "XI D"]
+CLASSES = ["IX A", "IX G", "VII A", "X C", "X F", "X H", "X I", "XI D"]
 SESSION = "2026-27"
 
 # Only the Half Yearly exam is reported; PT / Pre-Board / Annual sheets are skipped.
@@ -24,6 +24,13 @@ WANTED_EXAMS = ("HALF-YEARLY",)
 SHEET_EXAM_OVERRIDE = {
     ("X C", "SHEET1"): "HALF-YEARLY",
     ("X F", "SHEET1"): "HALF-YEARLY",
+}
+
+# Class teachers named on the sheet top (e.g. "C.T. - John Das") are picked up
+# automatically; classes whose master does not carry the name are filled from
+# this override instead.
+CLASS_TEACHER_OVERRIDE = {
+    "IX G": "ARVIND PATHAK",
 }
 
 HEADER = [
@@ -49,7 +56,7 @@ CANON = {
     "HINDI": "Hindi",
     "SANSK": "Sanskrit", "SNK": "Sanskrit", "SANK": "Sanskrit",
     "MATHS": "Mathematics", "SCI": "Science", "SCIENCE": "Science",
-    "SSC": "Social Sc.", "S.SC.": "Social Sc.", "S SC": "Social Sc.",
+    "SSC": "Social Sc.", "S.SC.": "Social Sc.", "S SC": "Social Sc.", "S.SC": "Social Sc.",
     "S. SCI": "Social Sc.",
     "ACC": "Accountancy", "BST": "B. St.", "ECO": "Economics",
     "PHY. EDU": "Physical Edu.",
@@ -65,6 +72,9 @@ MAXMARKS = {
     ("IX A", "PT-2"): {"ENG": 40, "HINDI": 40, "MATHS": 40, "SCI": 40, "SSC": 40},
     ("IX A", "HALF-YEARLY"): {
         "ENG": 80, "HINDI": 80, "MATHS": 80, "SCI": 80, "SSC": 80, "AI": 50,
+    },
+    ("IX G", "HALF-YEARLY"): {
+        "ENG": 80, "SNK": 80, "MATHS": 80, "S.SC": 80, "SCI": 80, "AI": 50,
     },
     ("VII A", "HALF-YEARLY"): {
         "ENG": 70, "HINDI": 70, "MATHS": 70, "SCIENCE": 70, "S.SC.": 70, "SANSK": 70,
@@ -164,6 +174,10 @@ def class_teacher_from_sheet(ws):
     return ""
 
 
+def cls_teacher(section):
+    return CLASS_TEACHER_OVERRIDE.get(section, "")
+
+
 def numeric(value):
     if isinstance(value, bool):
         return None
@@ -209,7 +223,7 @@ def analyse_sheet(ws, section, exam_type):
         name = ws.cell(row=row, column=name_col).value
         if name in (None, ""):
             continue
-        if norm(name) in ("TC", "TRANSFER"):
+        if norm(name) in ("TC", "TRANSFER", "AVG", "AVERAGE", "MEAN", "TOTAL"):
             continue
         students.append(row)
 
@@ -255,7 +269,7 @@ def analyse_sheet(ws, section, exam_type):
 
     return {
         "strength": len(students),
-        "class_teacher": class_teacher_from_sheet(ws),
+        "class_teacher": class_teacher_from_sheet(ws) or cls_teacher(section),
         "subjects": subject_rows,
         "passed": passed,
         "detained": detained,
@@ -272,9 +286,10 @@ def build_rows(section, exam_type, result):
         "exam_period_from": "",
         "exam_period_to": "",
         "class_strength": result["strength"],
-        # Left blank deliberately: the class teacher fills this in by hand,
-        # along with exam period, subject teachers and date.
-        "class_teacher_name": "",
+        # Filled from the sheet's "C.T." note when present, else from
+        # CLASS_TEACHER_OVERRIDE; other hand-written fields (exam period,
+        # subject teachers, date) are left blank deliberately.
+        "class_teacher_name": result["class_teacher"],
         "subject_teacher": "",
         "no_students_passed": result["passed"],
         "detained": result["detained"],

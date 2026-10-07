@@ -47,7 +47,7 @@ SUBJECTS = [
 SPARE_ROWS = 1
 N_ROWS = len(SUBJECTS) + SPARE_ROWS
 
-CLASSES = ["IX A", "VII A", "X C", "X F", "X H", "X I", "XI D"]
+CLASSES = ["IX A", "IX G", "VII A", "X C", "X F", "X H", "X I", "XI D"]
 
 # column widths, total = 523 pt (A4 595.32 - 2 x 36 margin)
 COLW = [76, 46, 50, 38, 38, 38, 38, 38, 38, 123]

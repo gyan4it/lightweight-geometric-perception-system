@@ -94,7 +94,8 @@ def recompute(df, section, exam_type):
     mask = []
     for _, row in df.iterrows():
         nm = row.iloc[name_col]
-        if is_absent(nm) or str(nm).strip().upper() in ("TC", "TRANSFER"):
+        if is_absent(nm) or str(nm).strip().upper() in ("TC", "TRANSFER", "AVG",
+                                                        "AVERAGE", "MEAN", "TOTAL"):
             mask.append(False)
         else:
             mask.append(True)
