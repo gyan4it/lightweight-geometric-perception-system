@@ -71,7 +71,10 @@ def main():
     with CDPRunner(port=a.port) as r:
         for page in pages:
             r.goto(page.resolve().as_uri())
-            r.evaluate(axe_src)                 # UMD: defines window.axe
+            # axe.min.js is a UMD whose return value is the whole axe object,
+            # which Chrome cannot returnByValue-serialize; end the expression
+            # with a scalar so loading cannot fail the evaluate "silently".
+            r.evaluate(axe_src + "\n; window.__axe_loaded = true;")
             res = r.evaluate(AXE_RUN) or []     # explicitly CALLED async fn
             if res:
                 findings += len(res)

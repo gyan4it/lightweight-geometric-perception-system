@@ -48,7 +48,7 @@ class CDPRunner:
         self.profile_dir = Path(profile_dir) if profile_dir else \
             Path(__file__).resolve().parent / f"edge-profile-{port}"
         self.headless = headless
-        self.proc, self.ws, self._id = None, None, 0
+        self.proc, self.ws, self._id, self.owned = None, None, 0, False
 
     # -------------------------------------------------------------- lifecycle
     def __enter__(self):
@@ -58,37 +58,55 @@ class CDPRunner:
     def __exit__(self, *exc):
         self.stop()
 
-    def start(self):
-        cmd = [find_browser(),
-               f"--remote-debugging-port={self.port}",
-               "--disable-gpu", "--no-first-run", "--remote-allow-origins=*",
-               f"--user-data-dir={self.profile_dir}"]
-        if self.headless:
-            cmd.append("--headless=new")
-        cmd.append("about:blank")
-        self.proc = subprocess.Popen(
-            cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    def _find_page(self, timeout_s: float = 15.0):
         last = None
-        for _ in range(60):
+        deadline = time.time() + timeout_s
+        while time.time() < deadline:
             try:
                 with urllib.request.urlopen(
                         f"http://127.0.0.1:{self.port}/json/list", timeout=1) as r:
                     tabs = json.load(r)
-                page = next(t for t in tabs if t["type"] == "page"
-                            and t["url"].startswith("about:"))
-                self.ws = websocket.create_connection(
-                    page["webSocketDebuggerUrl"], timeout=30, suppress_origin=True)
-                return self
+                return next(t for t in tabs if t["type"] == "page")
             except Exception as e:
                 last = e
                 time.sleep(0.25)
         raise RuntimeError(f"cannot attach to browser on {self.port}: {last!r}")
 
+    def start(self):
+        # Adopt-or-start: a browser already answering on this port is REUSED
+        # (never double-launch, never kill a browser we did not spawn). Flags
+        # relax the file:// origin so canvas pixel reads work for local files.
+        page = None
+        try:
+            page = self._find_page(timeout_s=1.5)
+        except RuntimeError:
+            pass
+        if page is None:
+            cmd = [find_browser(),
+                   f"--remote-debugging-port={self.port}",
+                   "--disable-gpu", "--no-first-run", "--remote-allow-origins=*",
+                   "--allow-file-access-from-files",
+                   f"--user-data-dir={self.profile_dir}"]
+            if self.headless:
+                cmd.append("--headless=new")
+            cmd.append("about:blank")
+            self.proc = subprocess.Popen(
+                cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            self.owned = True
+            page = self._find_page()
+        self.ws = websocket.create_connection(
+            page["webSocketDebuggerUrl"], timeout=30, suppress_origin=True)
+        return self
+
     def stop(self):
-        for closer in (lambda: self.ws.close() if self.ws else None,
-                       lambda: self.proc.terminate() if self.proc else None):
+        try:
+            if self.ws:
+                self.ws.close()
+        except Exception:
+            pass
+        if self.owned and self.proc:
             try:
-                closer()
+                self.proc.terminate()
             except Exception:
                 pass
         self.ws = self.proc = None
@@ -108,15 +126,31 @@ class CDPRunner:
                 return m.get("result", {})
 
     def evaluate(self, expression: str):
-        """RAW evaluate — a function expression is returned, NOT called."""
+        """RAW evaluate — a function expression is returned, NOT called.
+
+        Raises RuntimeError on JS exceptions instead of returning None, so a
+        broken probe can never be mistaken for a clean result."""
         res = self.send("Runtime.evaluate", {
             "expression": expression, "returnByValue": True, "awaitPromise": True})
+        if res.get("exceptionDetails"):
+            det = (res.get("exceptionDetails", {}).get("exception", {})
+                   .get("description")
+                   or res.get("exceptionDetails", {}).get("text", "evaluate failed"))
+            raise RuntimeError(str(det)[:300])
         return res.get("result", {}).get("value")
 
     def run_probe(self, probe_source: str, opts: dict = None):
-        """The safe path: always CALLS the probe function with JSON opts."""
+        """The safe path: always CALLS the probe function with JSON opts.
+
+        If the probe itself throws, that surfaces as a PROBE-ERR issue rather
+        than a clean result (the anti-vacuous-success rule, enforced here)."""
         expr = f"({probe_source})({json.dumps(opts or {})})"
-        return self.evaluate(expr)
+        try:
+            return self.evaluate(expr)
+        except Exception as e:
+            return {"issues": [{"t": "PROBE-ERR",
+                                "det": str(e)[:300],
+                                "conf": 1.0}]}
 
     # -------------------------------------------------------------- page ops
     def goto(self, uri: str, wait_s: float = 6.0):

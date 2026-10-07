@@ -6,6 +6,7 @@
   python tools/layout_check.py art/*.svg --json out.json
 
 Exit code = number of targets with findings (0 = clean).
+The `run()` core is reusable: `from layout_check import run` or via ligeo.
 """
 import argparse, json, sys
 from pathlib import Path
@@ -36,49 +37,70 @@ def collect(paths):
     return uniq
 
 
+def run(targets, port: int = 9400, root: str | None = None,
+        json_path: str | None = None, headed: bool = False):
+    """Geometry audit of html/svg file targets.
+
+    Returns (report: list[dict], dirty: int). Each report entry holds
+    {file, root?, meta?, issues}. run() never exits the process; the CLI
+    wrapper prints and maps dirty -> exit code."""
+    targets = collect([Path(t) for t in targets])
+    layout_js = (PROBES / "layout_probe.js").read_text(encoding="utf-8")
+    svg_js = (PROBES / "svg_probe.js").read_text(encoding="utf-8")
+
+    report, dirty = [], 0
+    with CDPRunner(port=port, headless=not headed) as r:
+        for f in targets:
+            r.goto(f.resolve().as_uri())
+            if f.suffix.lower() == ".svg":
+                out = r.run_probe(svg_js, {})
+            else:
+                out = r.run_probe(layout_js, {"root": root} if root else {})
+            out = out or {}
+            if out.get("issues"):
+                dirty += 1
+            entry = {"file": str(f), "issues": out.get("issues", [])}
+            if f.suffix.lower() == ".svg" and out.get("viewBox"):
+                entry["meta"] = ('svg viewBox {0}, texts={1}'.format(
+                    out["viewBox"], out.get("nText", 0)))
+            elif out.get("root"):
+                s = out["root"]
+                entry["meta"] = ('root {0}x{1}, {2} figs, {3} imgs'.format(
+                    s["w"], s["h"], out.get("nFigs", 0), out.get("nImgs", 0)))
+                entry["root"] = s
+            report.append(entry)
+
+    if json_path and report:
+        Path(json_path).parent.mkdir(parents=True, exist_ok=True)
+        Path(json_path).write_text(json.dumps(report, indent=2),
+                                   encoding="utf-8")
+    return report, dirty
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("targets", nargs="+")
     ap.add_argument("--root", help="CSS selector for the layout root")
     ap.add_argument("--port", type=int, default=9400)
     ap.add_argument("--json", help="write full evidence to this file")
-    ap.add_argument("--headless", action="store_true", default=True)
+    ap.add_argument("--headed", action="store_true",
+                    help="show the browser window (default: headless)")
     a = ap.parse_args()
 
-    targets = collect(a.targets)
-    layout_js = (PROBES / "layout_probe.js").read_text(encoding="utf-8")
-    svg_js = (PROBES / "svg_probe.js").read_text(encoding="utf-8")
+    report, dirty = run(a.targets, port=a.port, root=a.root,
+                        json_path=a.json, headed=a.headed)
 
-    report, dirty = [], 0
-    with CDPRunner(port=a.port) as r:
-        for f in targets:
-            r.goto(f.resolve().as_uri())
-            if f.suffix.lower() == ".svg":
-                out = r.run_probe(svg_js, {})
-            else:
-                out = r.run_probe(layout_js, {"root": a.root} if a.root else {})
-            issues = (out or {}).get("issues", [])
-            if issues:
-                dirty += 1
-            extra = ""
-            if out and "nText" in out:
-                extra = f" ({out['nText']} texts, viewBox {out.get('viewBox')})"
-            elif out and out.get("root"):
-                s = out["root"]
-                extra = (f" (root {s['w']}x{s['h']}, "
-                         f"{out.get('nFigs', 0)} figs, {out.get('nImgs', 0)} imgs)")
-            print(("!! " if issues else "OK ") + str(f) + extra)
-            for iss in issues:
-                print(f"     - [{iss.get('t')} conf {iss.get('conf', 0):.2f}] "
-                      f"{iss.get('det')}")
-            report.append({"file": str(f), "root": (out or {}).get("root"),
-                           "issues": issues})
+    for entry in report:
+        n = len(entry.get("issues", []))
+        meta = f"  {entry['meta']}" if entry.get("meta") else ""
+        print(("!! " if n else "OK ") + entry["file"] + meta)
+        for iss in entry["issues"]:
+            print(f"     - [{iss.get('t')} conf {iss.get('conf', 0):.2f}] "
+                  f"{iss.get('det')}")
 
     if a.json:
-        Path(a.json).parent.mkdir(parents=True, exist_ok=True)
-        Path(a.json).write_text(json.dumps(report, indent=2), encoding="utf-8")
         print(f"\nevidence written: {a.json}")
-    print(f"\nTARGETS: {len(targets)}  DIRTY: {dirty}")
+    print(f"\nTARGETS: {len(report)}  DIRTY: {dirty}")
     sys.exit(min(dirty, 1))
 
 

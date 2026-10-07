@@ -38,10 +38,13 @@
           "type": "string",
           "enum": [
             "OVERFLOW", "OVERLAP", "OUT-OF-BOUNDS", "IMG-FAIL", "ASPECT",
+            "NO-ALT",
             "OUT-OF-CANVAS", "TEXT-COLLIDE",
-            "E00", "E01"
+            "E00", "E01", "E02",
+            "PROBE-ERR", "AXE-ERROR",
+            "PDF-BLANK", "PRN-SIZE"
           ],
-          "description": "violation code; driver-specific codes may extend (AXE/*, PRN/*, KBD/*, LNK/*)"
+          "description": "violation code; driver-specific codes may extend (AXE/*, PRN/*, KBD/*, LNK/*). PROBE-ERR = the probe itself threw (never reported as 'clean')."
         },
         "det": { "type": "string", "minLength": 3 },
         "rect": { "$ref": "#/$defs/rect" },

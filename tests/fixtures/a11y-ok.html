@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- a11y-clean fixture -- axe must report ZERO violations here. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ligeopersys a11y-clean fixture</title>
+<style>
+  body { margin: 40px; font-family: system-ui, sans-serif; color: #1B2430;
+         background: #ffffff; }
+  main { max-width: 620px; margin: 0 auto; }
+  img { width: 96px; height: 96px; }
+  a { color: #01579B; }              /* contrast on white: 6.85:1 (AA+) */
+</style>
+</head>
+<body>
+  <header>
+    <h1>Accessible page</h1>
+    <p>Everything axe checks is present: a single h1, one main landmark,
+       an alt-bearing image, and a labelled link.</p>
+  </header>
+  <main>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGPQqzUCAAG6AN7Eir+IAAAAAElFTkSuQmCC"
+         alt="a one-pixel placeholder" width="96" height="96">
+    <p>Follow the <a href="#continue">next steps</a> to continue.</p>
+    <section aria-label="status">
+      <p>Status: ready.</p>
+    </section>
+  </main>
+</body>
+</html>
